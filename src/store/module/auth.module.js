@@ -1,6 +1,6 @@
-import { UserService, AuthenticationError } from '../../services/user.service'
-import { TokenService } from '../../services/storage.service'
-import router from '../../../router'
+import { UserService, AuthenticationError } from '../../service/user.service'
+import { TokenService } from '../../service/storage.service'
+import router from '../../router'
 
 const state = {
   authenticating: false,

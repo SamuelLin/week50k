@@ -1,38 +1,51 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
+    <Loader />
+
+    <v-toolbar dark color="primary" dense>
+      <v-toolbar-title class="headline text-uppercase white--text">
+        <span>week50k</span>
       </v-toolbar-title>
+
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
+
+      <v-btn icon v-if="loggedIn" to="/">
+        <v-icon>cloud_upload</v-icon>
+      </v-btn>
+
+      <v-btn icon v-if="loggedIn" to="/leaderboard">
+        <v-icon>sort</v-icon>
+      </v-btn>
+
+      <v-btn icon v-if="loggedIn" @click="logout">
+        <v-icon>link_off</v-icon>
+      </v-btn>
+
+      <v-btn icon v-if="!loggedIn" to="/login" >
+        <v-icon>link</v-icon>
       </v-btn>
     </v-toolbar>
 
     <v-content>
-      <HelloWorld/>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import { mapActions, mapGetters } from 'vuex'
+import Loader from './components/Loader'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Loader
   },
-  data () {
-    return {
-      //
-    }
+  computed: {
+    ...mapGetters('auth', ['loggedIn'])
+  },
+  methods: {
+    ...mapActions('auth', ['logout'])
   }
 }
 </script>

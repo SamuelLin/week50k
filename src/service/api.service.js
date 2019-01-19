@@ -1,4 +1,4 @@
-import axios from 'axios'
+import http from '../plugins/http'
 import { TokenService } from './storage.service'
 import store from '../store'
 
@@ -7,35 +7,35 @@ const ApiService = {
   _401interceptor: null,
 
   init (baseURL) {
-    axios.defaults.baseURL = baseURL
+    http.defaults.baseURL = baseURL
   },
 
   setHeader () {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${TokenService.getToken()}`
+    http.defaults.headers.common['Authorization'] = `Bearer ${TokenService.getToken()}`
   },
 
   removeHeader () {
-    axios.defaults.headers.common = {}
+    http.defaults.headers.common = {}
   },
 
   get (resource, params) {
-    return axios.get(resource, { params })
+    return http.get(resource, { params })
   },
 
   post (resource, data) {
-    return axios.post(resource, data)
+    return http.post(resource, data)
   },
 
   put (resource, data) {
-    return axios.put(resource, data)
+    return http.put(resource, data)
   },
 
   delete (resource) {
-    return axios.delete(resource)
+    return http.delete(resource)
   },
 
   mount401Interceptor () {
-    this._401interceptor = axios.interceptors.response.use(
+    this._401interceptor = http.interceptors.response.use(
       (response) => {
         return response
       },
@@ -44,13 +44,11 @@ const ApiService = {
           if (error.config.url.includes('/oauth/token')) {
             // Refresh token has failed. Logout the user
             store.dispatch('auth/logout')
-
             throw error
           } else {
             // Refresh the access token
             try {
               await store.dispatch('auth/refreshToken')
-
               // Retry the original request
               return this.customRequest({
                 method: error.config.method,
@@ -64,7 +62,6 @@ const ApiService = {
             }
           }
         }
-
         // If error was not 401 just reject as is
         throw error
       }
@@ -73,11 +70,11 @@ const ApiService = {
 
   unmount401Interceptor () {
     // Eject the interceptor
-    axios.interceptors.response.eject(this._401interceptor)
+    http.interceptors.response.eject(this._401interceptor)
   },
 
   /**
-   * Perform a custom Axios request.
+   * Perform a custom http request.
    *
    * data is an object containing the following properties:
    *  - method
@@ -86,7 +83,7 @@ const ApiService = {
    *  - auth (optional)
    **/
   customRequest (data) {
-    return axios(data)
+    return http(data)
   }
 }
 
