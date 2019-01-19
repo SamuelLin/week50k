@@ -1,29 +1,9 @@
 # week50k
 
-## Project setup
-```
-npm install
-```
+## Project goal
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+幫助 [週週 50 k](https://www.facebook.com/groups/182676019345850/) 紀錄社團成員每週里程狀態，使用者必須擁有 strava 帳號並且加入 [週週 50 k 騎騎樂](https://www.strava.com/clubs/weekride)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+有任何回饋歡迎直接聯繫我！
+謝謝！
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
