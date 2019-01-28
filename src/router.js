@@ -16,7 +16,7 @@ const router = new Router({
       component: Home,
       meta: {
         isPublic: false
-      },
+      }
     },
     {
       path: '/login',
