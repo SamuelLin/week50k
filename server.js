@@ -5,7 +5,6 @@ const path = require('path')
 
 const app = express()
 
-app.use(history({ verbose: true }))
 app.use('/', serveStatic(path.join(__dirname, '/dist')))
 
 // Catch all routes and redirect to the index file
