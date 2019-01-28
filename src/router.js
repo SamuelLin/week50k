@@ -34,6 +34,10 @@ const router = new Router({
         isPublic: false
       },
       component: () => import('./views/Leaderboard.vue')
+    },
+    {
+      path: '/*',
+      redirect: '/'
     }
   ]
 })
