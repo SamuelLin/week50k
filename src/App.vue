@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Loader />
+    <Loader/>
 
     <v-toolbar dark color="primary" dense>
       <v-toolbar-title class="headline text-uppercase white--text">
@@ -21,7 +21,7 @@
         <v-icon>link_off</v-icon>
       </v-btn>
 
-      <v-btn icon v-if="!loggedIn" to="/login" >
+      <v-btn icon v-if="!loggedIn" to="/login">
         <v-icon>link</v-icon>
       </v-btn>
     </v-toolbar>
@@ -29,6 +29,27 @@
     <v-content>
       <router-view></router-view>
     </v-content>
+
+    <v-footer height="auto" dark>
+      <v-card class="flex" flat tile>
+        <v-card-title class="grey darken-1">
+          <strong class="subheading">Get connected with us on social networks!</strong>
+
+          <v-spacer></v-spacer>
+
+          <v-btn v-for="icon in icons" :key="icon.name" class="mx-3" dark icon>
+            <a :href="icon.href" target="_blank" class="iconButton">
+              <v-icon size="24px">{{ icon.name }}</v-icon>
+            </a>
+          </v-btn>
+        </v-card-title>
+
+        <!-- <v-card-actions class="grey lighten-1 justify-center">
+          &copy;2018 —
+          <strong>week50k</strong>
+        </v-card-actions> -->
+      </v-card>
+    </v-footer>
   </v-app>
 </template>
 
@@ -41,6 +62,20 @@ export default {
   components: {
     Loader
   },
+  data () {
+    return {
+      icons: [
+        {
+          name: 'fab fa-facebook',
+          href: 'https://www.facebook.com/groups/182676019345850/'
+        },
+        {
+          name: 'fab fa-strava',
+          href: 'https://www.strava.com/clubs/weekride'
+        }
+      ]
+    }
+  },
   computed: {
     ...mapGetters('auth', ['loggedIn'])
   },
@@ -49,3 +84,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.iconButton {
+  text-decoration: none !important;
+  color: white;
+}
+</style>
