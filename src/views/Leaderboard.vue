@@ -36,8 +36,10 @@
         </v-alert>
       </template>
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
-        <td>{{ props.item.distance }}</td>
+        <tr :class="props.item.distance >= 50 ? 'green lighten-5' : ''">
+          <td>{{ props.item.name }}</td>
+          <td>{{ props.item.distance }}</td>
+        </tr>
       </template>
     </v-data-table>
     <v-snackbar v-model="snackbar" :timeout="3000" color="error" bottom>
