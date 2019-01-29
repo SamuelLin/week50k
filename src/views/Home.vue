@@ -63,7 +63,6 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import moment from 'moment'
 
 export default {
   filters: {
@@ -83,7 +82,7 @@ export default {
     const date = new Date()
     const year = date.getFullYear()
     const month = date.getMonth() + 1
-    const weekOfYear = moment().week()
+    const weekOfYear = this.$moment().week()
 
     return {
       year,
@@ -134,10 +133,8 @@ export default {
     if (!this.athlete) {
       this.getAthlete()
       this.getActivities({
-        // after: moment().startOf('week').add(1, 'days').format('X'),
-        // before: moment().endOf('week').add(1, 'days').format('X')
-        after: moment().startOf('week').format('X'),
-        before: moment().endOf('week').format('X')
+        after: this.$moment().startOf('week').format('X'),
+        before: this.$moment().endOf('week').format('X')
       })
     }
   }

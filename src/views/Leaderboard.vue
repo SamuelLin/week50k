@@ -52,14 +52,12 @@
 </template>
 
 <script>
-import moment from 'moment'
-
 export default {
   data () {
-    const month = moment().format('YYYY-MM')
-    const maxMonth = moment().format('YYYY-MM')
-    const minMonth = moment().subtract(3, 'months').format('YYYY-MM')
-    const week = moment().week()
+    const month = this.$moment().format('YYYY-MM')
+    const maxMonth = this.$moment().format('YYYY-MM')
+    const minMonth = this.$moment().subtract(3, 'months').format('YYYY-MM')
+    const week = this.$moment().week()
 
     return {
       maxMonth,
@@ -82,11 +80,11 @@ export default {
   },
   computed: {
     weeks () {
-      const selectedDate = moment(this.month).format('YYYYMMDD')
-      const startMonth = moment(selectedDate).startOf('month')
-      const endMonth = moment(selectedDate).endOf('month')
+      const selectedDate = this.$moment(this.month).format('YYYYMMDD')
+      const startMonth = this.$moment(selectedDate).startOf('month')
+      const endMonth = this.$moment(selectedDate).endOf('month')
       const diff = endMonth.diff(startMonth, 'weeks')
-      const startMonthWeek = moment(this.month).startOf('month').week()
+      const startMonthWeek = this.$moment(this.month).startOf('month').week()
       const weekArr = Array(diff + 1).fill(0).map((week, index) => ({
         text: startMonthWeek + index,
         value: startMonthWeek + index
@@ -97,7 +95,7 @@ export default {
   },
   watch: {
     month () {
-      this.week = moment(this.month).startOf('month').week()
+      this.week = this.$moment(this.month).startOf('month').week()
     },
     week () {
       this.query()

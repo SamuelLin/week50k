@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import './plugins/vuetify'
+import Moment from './plugins/moment'
 import Firebase from './plugins/firebase'
 import App from './App.vue'
 import router from './router'
@@ -9,6 +10,7 @@ import { TokenService } from './service/storage.service'
 
 Vue.config.productionTip = false
 Vue.use(Firebase)
+Vue.use(Moment)
 
 // Set the base URL of the API
 ApiService.init(process.env.VUE_APP_ROOT_API)
