@@ -19,7 +19,7 @@
 
     <h1 v-if="athleteName">Hi! {{athleteName}}</h1>
 
-    <v-btn color="primary" @click="updateData" :disabled="activities.length === 0">上傳你的紀錄</v-btn>
+    <v-btn color="primary" @click="updateData" :disabled="activities.length === 0">上傳你本週的紀錄</v-btn>
 
     <div style="margin: 10px;"></div>
 
@@ -48,7 +48,7 @@
         </template>
       </div>
       <div v-else>
-        <v-list-tile>這週無資料</v-list-tile>
+        <v-list-tile>這週無資料，該去騎車囉！</v-list-tile>
       </div>
     </v-list>
 
