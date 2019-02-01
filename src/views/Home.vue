@@ -109,7 +109,7 @@ export default {
       this.requestStart()
 
       const athleteId = String(this.athlete.id)
-      const dateId = `${this.year}${this.addZero(this.month)}_${this.weekOfYear}`
+      const dateId = `${this.year}_${this.weekOfYear}`
 
       try {
         await this.$firebase.firestore().collection('weeks')
@@ -124,9 +124,6 @@ export default {
       }
 
       this.requestStop()
-    },
-    addZero (i) {
-      return i < 10 ? `0${i}` : i
     }
   },
   mounted () {

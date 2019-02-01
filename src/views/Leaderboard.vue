@@ -106,7 +106,7 @@ export default {
       if (this.loading) return
       this.loading = true
 
-      const dateId = `${this.month.split('-').join('')}_${this.week}`
+      const dateId = `${this.month.split('-')[0]}_${this.week}`
 
       try {
         const querySnapShot = await this.$firebase.firestore().collection('weeks')
@@ -132,10 +132,32 @@ export default {
       }
 
       this.loading = false
+    },
+    async rewrite () {
+      console.log('rewrite')
+      try {
+        const querySnapShot = await this.$firebase.firestore().collection('weeks')
+          .doc('201901_5')
+          .collection('Athletes')
+          .get()
+
+        querySnapShot.docs.map(async (doc) => {
+          const data = doc.data()
+
+          await this.$firebase.firestore().collection('weeks')
+            .doc('2019_5')
+            .collection('Athletes')
+            .doc(String(data.id))
+            .set(data)
+        })
+      } catch (error) {
+        console.log('error', error)
+      }
     }
   },
   mounted () {
     this.query()
+    // this.rewrite()
   }
 }
 </script>
