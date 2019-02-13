@@ -81,14 +81,28 @@ export default {
   computed: {
     weeks () {
       const selectedDate = this.$moment(this.month).format('YYYYMMDD')
-      const startMonth = this.$moment(selectedDate).startOf('month')
-      const endMonth = this.$moment(selectedDate).endOf('month')
-      const diff = endMonth.diff(startMonth, 'weeks')
-      const startMonthWeek = this.$moment(this.month).startOf('month').week()
-      const weekArr = Array(diff + 1).fill(0).map((week, index) => ({
-        text: startMonthWeek + index,
-        value: startMonthWeek + index
-      }))
+      const startMonthDate = this.$moment(selectedDate).startOf('month')
+      const endMonthDate = this.$moment(selectedDate).endOf('month')
+
+      let weekIndex = startMonthDate.week()
+      const targetWeekIndex = endMonthDate.week()
+      const weekArr = []
+
+      while (weekIndex !== targetWeekIndex) {
+        weekArr.push({
+          text: weekIndex,
+          value: weekIndex
+        })
+
+        weekIndex = startMonthDate.add(1, 'w').week()
+      }
+
+      if (weekIndex === targetWeekIndex) {
+        weekArr.push({
+          text: weekIndex,
+          value: weekIndex
+        })
+      }
 
       return weekArr
     }
