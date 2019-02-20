@@ -7,7 +7,8 @@ const state = {
   accessToken: TokenService.getToken(),
   authenticationErrorCode: 0,
   authenticationError: '',
-  refreshTokenPromise: null
+  refreshTokenPromise: null,
+  user: null
 }
 
 const getters = {
@@ -108,6 +109,10 @@ const mutations = {
 
   refreshTokenPromise (state, promise) {
     state.refreshTokenPromise = promise
+  },
+
+  updateUser (state, { user }) {
+    state.user = user
   }
 }
 

@@ -1,5 +1,7 @@
 import Firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/auth'
+import store from '../store'
 
 const config = {
   apiKey: 'AIzaSyCrv0G4aexf88M8ikUNPgO-0R6m8EtpBCI',
@@ -13,6 +15,11 @@ const config = {
 export default {
   install: (Vue) => {
     Firebase.initializeApp(config)
+    Firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        store.commit('auth/updateUser', { user })
+      }
+    })
 
     Vue.prototype.$firebase = Firebase
     Vue.firebase = Firebase

@@ -57,6 +57,10 @@ export default {
     const parsed = parse(search)
     const code = parsed.code
 
+    this.$firebase.auth().signInAnonymously().catch((error) => {
+      console.log(error.message)
+    })
+
     if (code) {
       this.login(code)
     }
