@@ -33,7 +33,7 @@
     <v-footer height="auto" dark>
       <v-card class="flex" flat tile>
         <v-card-title class="grey darken-1">
-          <strong class="subheading">Get connected with us on social networks!</strong>
+          <strong class="subheading">任何問題或建議歡迎來信: <a href="mailto:samuelhsnu@gmail.com">samuelhsnu@gmail.com</a></strong>
 
           <v-spacer></v-spacer>
 
