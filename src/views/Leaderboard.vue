@@ -29,6 +29,7 @@
       no-data-text="無資料"
       class="elevation-1"
       :loading="loading"
+      :pagination.sync="pagination"
     >
       <template slot="no-data">
         <v-alert :value="true" color="error" icon="warning">
@@ -75,7 +76,12 @@ export default {
       ],
       data: [],
       snackbar: false,
-      loading: false
+      loading: false,
+      pagination: {
+        rowsPerPage: 10,
+        descending: true,
+        sortBy: 'distance'
+      }
     }
   },
   computed: {
