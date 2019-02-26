@@ -126,7 +126,7 @@ export default {
       if (this.loading) return
       this.loading = true
 
-      const dateId = `${this.month.split('-')[0]}_${this.week}`
+      const dateId = `${this.week}`
 
       try {
         const querySnapShot = await this.$firebase.firestore().collection('weeks')
@@ -157,7 +157,7 @@ export default {
       console.log('rewrite')
       try {
         const querySnapShot = await this.$firebase.firestore().collection('weeks')
-          .doc('201901_5')
+          .doc('2019_9')
           .collection('Athletes')
           .get()
 
@@ -165,7 +165,7 @@ export default {
           const data = doc.data()
 
           await this.$firebase.firestore().collection('weeks')
-            .doc('2019_5')
+            .doc('9')
             .collection('Athletes')
             .doc(String(data.id))
             .set(data)

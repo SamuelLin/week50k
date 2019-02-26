@@ -19,7 +19,24 @@
 
     <h1 v-if="athleteName">Hi! {{athleteName}}</h1>
 
-    <v-btn color="primary" @click="updateData" :disabled="activities.length === 0">上傳你本週的紀錄</v-btn>
+    <v-layout align-center>
+      <v-flex md2>
+        <v-switch
+          v-model="isThisWeek"
+          :label="labelText"
+          :value="true"
+          color="orange"
+        ></v-switch>
+      </v-flex>
+
+      <v-flex md2>
+        <v-btn
+          color="primary"
+          @click="updateData"
+          :disabled="activities.length === 0 || loading"
+        >上傳你的紀錄</v-btn>
+      </v-flex>
+    </v-layout>
 
     <div style="margin: 10px;"></div>
 
@@ -88,7 +105,8 @@ export default {
       year,
       month,
       weekOfYear,
-      snackbar: false
+      snackbar: false,
+      isThisWeek: true
     }
   },
   computed: {
@@ -98,6 +116,21 @@ export default {
       return this.athlete
         ? `${this.athlete.firstname} ${this.athlete.lastname}`
         : ''
+    },
+    labelText () {
+      return this.isThisWeek ? '本週' : '上週'
+    }
+  },
+  watch: {
+    isThisWeek (val) {
+      const time = val ? this.$moment() : this.$moment().subtract(1, 'weeks')
+
+      this.weekOfYear = time.week()
+
+      this.getActivities({
+        after: time.startOf('week').format('X'),
+        before: time.endOf('week').format('X')
+      })
     }
   },
   methods: {
@@ -109,7 +142,7 @@ export default {
       this.requestStart()
 
       const athleteId = String(this.athlete.id)
-      const dateId = `${this.year}_${this.weekOfYear}`
+      const dateId = `${this.weekOfYear}`
 
       try {
         await this.$firebase.firestore().collection('weeks')
