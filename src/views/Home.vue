@@ -142,7 +142,7 @@ export default {
       this.requestStart()
 
       const athleteId = String(this.athlete.id)
-      const dateId = `${this.weekOfYear}`
+      const dateId = `${(new Date()).getFullYear()}${this.weekOfYear}`
 
       try {
         await this.$firebase.firestore().collection('weeks')

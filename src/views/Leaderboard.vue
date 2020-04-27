@@ -126,7 +126,7 @@ export default {
       if (this.loading) return
       this.loading = true
 
-      const dateId = `${this.week}`
+      const dateId = `${(new Date()).getFullYear()}${this.week}`
 
       try {
         const querySnapShot = await this.$firebase.firestore().collection('weeks')
